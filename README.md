@@ -1,7 +1,7 @@
 # misc_MSSB
 General MSSB Stat Parsers I've created (these are all generally older but I remember viewing code by Pokebunny for stuff on this)
 
-Most code here runs using StarsOffSeason5/6 statistics, they also work with older seasons but are hard coded to use those since that was the current season at the time
+Most code here runs using StarsOffSeason5/6 statistics, they also work with older seasons but are hard coded to use those since that was the current season at the time - its also beneficial to use older seasons as they have less statisitcs overall, and can be ran faster
 
 All functions here take a Username input, which can be empty allowing all data to be used, otherwise it will only pull data from 'username'
 
