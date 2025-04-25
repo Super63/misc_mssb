@@ -19,6 +19,8 @@ Finds the rate of At Bats per each RBI the character gets, and outputs the total
 
 # stats.py
 
+Input is Username (same as listed up top) and a hardcoded season to seach through (that can be changed)
+
 ba_opb_comp: Compares the BA to the OPB of the character, and outputs the difference
 
 strikeout_rate: Finds the strikeout% of each character, and outputs the total average, along with each characters strikeout%
