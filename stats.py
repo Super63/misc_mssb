@@ -1,6 +1,8 @@
 import requests
+
+
 def ba_obp_comp(user):
-    url = "https://api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&by_char=1&tag=starsoffseason6&tag=starsoffseason5"
+    url = "https://projectrio-api-1.api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&by_char=1&tag=starsoffseason6&tag=starsoffseason5"
 
     if user != "":
         url += "&username=" + user
@@ -17,7 +19,8 @@ def ba_obp_comp(user):
     for character in stat_dump:
         char_list.append(character)
         stats = stat_dump[character]["Batting"]
-        pa = stats["summary_at_bats"] + stats["summary_walks_hbp"] + stats["summary_walks_bb"] + stats["summary_sac_flys"]
+        pa = stats["summary_at_bats"] + stats["summary_walks_hbp"] + stats["summary_walks_bb"] + stats[
+            "summary_sac_flys"]
         avg = round(stats["summary_hits"] / stats["summary_at_bats"], 3)
         obp = round((stats["summary_hits"] + stats["summary_walks_hbp"] + stats["summary_walks_bb"]) / pa, 3)
 
@@ -30,7 +33,7 @@ def ba_obp_comp(user):
     for num in range(0, len(char_list)):
         if int(len(char_list[num])) > max_len:
             max_len = len(char_list[num])
-            
+
     for num in range(0, len(char_list)):
         # want 13 characters to be taken up (name + one extra space)
         offset = " " * abs((int(len(char_list[num])) - max_len))
@@ -40,13 +43,14 @@ def ba_obp_comp(user):
         if difference > 0:
             sign = "+"
         if difference == 0:
-            sign = "=" 
+            sign = "="
 
         difference = sign + str(difference) + ("0" * (5 - len(str(difference))))
         print(f"{char_list[num]}{offset}| BA: {ba_list[num]}, OBP: {obp_list[num]}, Difference: {difference}")
 
+
 def strikeout_rate(user):
-    url = "https://api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&by_char=1&tag=starsoffseason6&tag=starsoffseason5"
+    url = "https://projectrio-api-1.api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&by_char=1&tag=starsoffseason6&tag=starsoffseason5"
 
     full_response = requests.get(url).json()
 
@@ -57,7 +61,6 @@ def strikeout_rate(user):
     else:
         response = full_response
         compare = False
-    
 
     stat_dump = response["Stats"]
     # print(stat_dump)
@@ -69,7 +72,8 @@ def strikeout_rate(user):
     for character in stat_dump:
         char_list.append(character)
         stats = stat_dump[character]["Batting"]
-        pa = stats["summary_at_bats"] + stats["summary_walks_hbp"] + stats["summary_walks_bb"] + stats["summary_sac_flys"]
+        pa = stats["summary_at_bats"] + stats["summary_walks_hbp"] + stats["summary_walks_bb"] + stats[
+            "summary_sac_flys"]
         k = stats["summary_strikeouts"]
         k_rate = k / pa
         k_list.append(k_rate)
@@ -77,7 +81,8 @@ def strikeout_rate(user):
         full_stat_dump = full_response["Stats"]
         for character in full_stat_dump:
             stats = full_stat_dump[character]["Batting"]
-            pa = stats["summary_at_bats"] + stats["summary_walks_hbp"] + stats["summary_walks_bb"] + stats["summary_sac_flys"]
+            pa = stats["summary_at_bats"] + stats["summary_walks_hbp"] + stats["summary_walks_bb"] + stats[
+                "summary_sac_flys"]
             k = stats["summary_strikeouts"]
             k_rate = k / pa
             full_k_list.append(k_rate)
@@ -88,25 +93,25 @@ def strikeout_rate(user):
             max_len = len(char_list[num])
 
     total = sum(k_list) / len(k_list)
-    print(f"Total: {total:.1%}") 
+    print(f"Total: {total:.1%}")
     if compare:
         real_total = total - (sum(full_k_list) / len(full_k_list))
         sign = ""
         if real_total > 0:
             sign = "+"
         if real_total == 0:
-            sign = "=" 
+            sign = "="
 
         print(f"({sign}{real_total:.1%})")
-        print("",end="")
-          
+        print("", end="")
+
     for num in range(0, len(char_list)):
         # want 13 characters to be taken up (name + one extra space)
         offset = " " * abs((int(len(char_list[num])) - max_len))
         space = ""
         if k_list[num] < .1:
             space = " "
-            
+
         print(f"{char_list[num]}{offset}| {k_list[num]:.1%}{space}", end=" ")
         if compare:
             diff = k_list[num] - full_k_list[num]
@@ -115,17 +120,18 @@ def strikeout_rate(user):
             if diff > 0:
                 sign = "+"
             if diff == 0:
-                sign = "=" 
+                sign = "="
 
             print(f"({sign}{diff:.1%})")
         else:
             print()
-        print("",end="")       
+        print("", end="")
 
-# maybe add league wide compare to xbh_rate
+    # maybe add league wide compare to xbh_rate
+
+
 def xbh_rate(user):
-    url = "https://api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&by_char=1&tag=starsoffseason6&tag=starsoffseason5"
-
+    url = "https://projectrio-api-1.api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&by_char=1&tag=starsoffseason6&tag=starsoffseason5"
     if user != "":
         url += "&username=" + user
 
@@ -140,7 +146,9 @@ def xbh_rate(user):
     for character in stat_dump:
         char_list.append(character)
         stats = stat_dump[character]["Batting"]
-        try: xbh = round(((stats["summary_doubles"] + stats["summary_triples"] + stats["summary_homeruns"]) / stats["summary_hits"] * 100), 1)
+        try:
+            xbh = round(((stats["summary_doubles"] + stats["summary_triples"] + stats["summary_homeruns"]) / stats[
+                "summary_hits"] * 100), 1)
         except ZeroDivisionError:
             xbh = 0.0
         xbh = str(xbh) + ("0" * (4 - len(str(xbh))))
@@ -151,7 +159,7 @@ def xbh_rate(user):
     for num in range(0, len(char_list)):
         if int(len(char_list[num])) > max_len:
             max_len = len(char_list[num])
-            
+
     for num in range(0, len(char_list)):
         # want 13 characters to be taken up (name + one extra space)
         offset = " " * abs((int(len(char_list[num])) - max_len))
@@ -166,8 +174,9 @@ def xbh_rate(user):
         difference = sign + str(difference) + ("0" * (5 - len(str(difference))))'''
         print(f"{char_list[num]}{offset}| XBH%: {xbh_list[num]}%")
 
+
 def babip(user):
-    url = "https://api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&by_char=1&tag=starsoffseason6&tag=starsoffseason5"
+    url = "https://projectrio-api-1.api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&by_char=1&tag=starsoffseason6&tag=starsoffseason5"
 
     if user != "":
         url += "&username=" + user
@@ -183,7 +192,9 @@ def babip(user):
     for character in stat_dump:
         char_list.append(character)
         stats = stat_dump[character]["Batting"]
-        babip = round( (stats["summary_hits"] - stats["summary_homeruns"]) / ( stats["summary_at_bats"] - stats["summary_strikeouts"] - stats["summary_homeruns"] + stats["summary_sac_flys"] ), 3)
+        babip = round((stats["summary_hits"] - stats["summary_homeruns"]) / (
+                    stats["summary_at_bats"] - stats["summary_strikeouts"] - stats["summary_homeruns"] + stats[
+                "summary_sac_flys"]), 3)
 
         babip = str(babip) + ("0" * (5 - len(str(babip))))
         babip_list.append(babip)
@@ -192,7 +203,7 @@ def babip(user):
     for num in range(0, len(char_list)):
         if int(len(char_list[num])) > max_len:
             max_len = len(char_list[num])
-            
+
     for num in range(0, len(char_list)):
         # want 13 characters to be taken up (name + one extra space)
         offset = " " * abs((int(len(char_list[num])) - max_len))
@@ -206,6 +217,7 @@ def babip(user):
 
         difference = sign + str(difference) + ("0" * (5 - len(str(difference))))'''
         print(f"{char_list[num]}{offset}| BABIP: {babip_list[num]}")
+
 
 def main():
     print("Enter username")
@@ -232,5 +244,5 @@ def main():
         babip(username)
     return
 
-main()
 
+main()
