@@ -19,5 +19,16 @@ BABIP: Finds the Batting Average on Balls In Play for each character, and output
 
 Inputs are Username (same as listed up top) and a selection of Stars Off or Stars On (different gamemode selection, code works the same either way)
 
-Finds the rate of At Bats per each RBI the character gets, and outputs the average per character, sorted by lowest to highest rate
+Finds the rate of At Bats per each RBI the character gets, and outputs the total rate for all characters, and outputs the average per character, sorted by lowest to highest rate
 
+# walk-rate
+
+Inputs are Username (same as listed up top) and a selection of Stars Off or Stars On (different gamemode selection, code works the same either way)
+
+Finds the rate of at bats per each characters walk (4 Balls or Hit By Pitch) and outputs the total rate for all characters together, and outputs each character's numerical walks and walk percent. Can be sorted by highest walk rate, but sorting gets less accurate the further down the list.
+
+# ab-hr
+
+Inputs are Username (same as listed up top) and a selection of Stars Off or Stars On (different gamemode selection, code works the same either way)
+
+Finds the rate of At Bats per each Homerun the character gets, and outputs the total rate for all characters, and average per character, sorted by lowest to highest rate
